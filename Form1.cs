@@ -42,16 +42,8 @@ namespace sendFiles_Client
                     Console.WriteLine("Socket connected to {0}",
                         socketSender.RemoteEndPoint.ToString());
 
-                    // Encode the data string into a byte array.
-                    byte[] msg = Encoding.ASCII.GetBytes("This is a test<EOF>");
+    
 
-                    // Send the data through the socket.
-                    int bytesSent = socketSender.Send(msg);
-
-                    // Receive the response from the remote device.
-                    int bytesRec = socketSender.Receive(bytes);
-                    Console.WriteLine("Echoed test = {0}",
-                        Encoding.ASCII.GetString(bytes, 0, bytesRec));
 
                     socketSender.Shutdown(SocketShutdown.Both);
                     socketSender.Close();
@@ -75,6 +67,15 @@ namespace sendFiles_Client
             {
                 Console.WriteLine(error.ToString());
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form2 seconedForm = new Form2();
+            this.Hide();
+            seconedForm.ShowDialog();
+            this.Close();
+
         }
     }
 }
