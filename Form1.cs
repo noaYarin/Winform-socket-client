@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Net.Sockets;
+
 
 namespace sendFiles_Client
 {
     public partial class Form1 : Form
     {
-
+        public Socket socketSender { get; set; }
         public Form1()
         {
             InitializeComponent();
@@ -23,59 +19,64 @@ namespace sendFiles_Client
 
         private void button1_Click(object sender, EventArgs e)
         {
+            byte[] data = new byte[1024];
+            int sent;
+            IPEndPoint ip = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
 
-            byte[] bytes = new byte[1024];
+            Socket server = new Socket(AddressFamily.InterNetwork,
+                            SocketType.Stream, ProtocolType.Tcp);
 
             try
             {
-
-                IPHostEntry hostAddr = Dns.GetHostEntry(textBox2.Text);
-                IPAddress ipAddress = hostAddr.AddressList[0]; 
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress, Int32.Parse(textBox1.Text));
-
-                Socket socketSender = new Socket(ipAddress.AddressFamily,
-                    SocketType.Stream, ProtocolType.Tcp);
-
-                try
-                {
-                    socketSender.Connect(remoteEP);
-                    Console.WriteLine("Socket connected to {0}",
-                        socketSender.RemoteEndPoint.ToString());
-
-    
-
-
-                    socketSender.Shutdown(SocketShutdown.Both);
-                    socketSender.Close();
-
-                }
-                catch (ArgumentNullException ane)
-                {
-                    Console.WriteLine("ArgumentNullException : {0}", ane.ToString());
-                }
-                catch (SocketException se)
-                {
-                    Console.WriteLine("SocketException : {0}", se.ToString());
-                }
-                catch (Exception error)
-                {
-                    Console.WriteLine("Unexpected exception : {0}", error.ToString());
-                }
-
+                server.Connect(ip);
+                Console.WriteLine("Server is listening");
             }
-            catch (Exception error)
+            catch (SocketException error)
             {
+                Console.WriteLine("Unable to connect to server.");
                 Console.WriteLine(error.ToString());
             }
+
+
+            Bitmap bmp = new Bitmap("C:\\Users\\ירין\\Downloads\\tra-tran-ZvVhWYA-hXA-unsplash.jpg");
+
+            MemoryStream memoryStream = new MemoryStream();
+            bmp.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+            Console.WriteLine("BMP saved");
+
+            byte[] bmpBytes = memoryStream.ToArray();
+            bmp.Dispose();
+            memoryStream.Close();
+ 
+            sent = sendData(server, bmpBytes);
+
+            Console.WriteLine("Disconnecting from server...");
+            server.Shutdown(SocketShutdown.Both);
+            server.Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private static int sendData(Socket socket, byte[] data)
         {
-            Form2 seconedForm = new Form2();
-            this.Hide();
-            seconedForm.ShowDialog();
-            this.Close();
+            Console.WriteLine("Byts chunks before send image");
 
+            int total = 0;
+            int size = data.Length;
+            int dataleft = size;
+            int sent;
+
+            byte[] datasize = new byte[4];
+            datasize = BitConverter.GetBytes(size);
+            sent = socket.Send(datasize);
+
+            while (total < size)
+            {
+                sent = socket.Send(data, total, dataleft, SocketFlags.None);
+                total += sent;
+                dataleft -= sent;
+            }
+            Console.WriteLine("I finished and now send the image");
+
+            return total;
         }
     }
 }

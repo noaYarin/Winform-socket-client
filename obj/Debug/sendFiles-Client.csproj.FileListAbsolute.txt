@@ -21,3 +21,14 @@ C:\Users\yarin.dev\Source\Repos\Winform-socket-client\obj\Debug\sendFiles-Client
 C:\Users\yarin.dev\Source\Repos\Winform-socket-client\obj\Debug\sendFiles-Client.exe
 C:\Users\yarin.dev\Source\Repos\Winform-socket-client\obj\Debug\sendFiles-Client.pdb
 C:\Users\yarin.dev\Source\Repos\Winform-socket-client\obj\Debug\sendFiles_Client.Form2.resources
+C:\Users\ירין\Source\Repos\Winform-socket-client\bin\Debug\sendFiles-Client.exe.config
+C:\Users\ירין\Source\Repos\Winform-socket-client\bin\Debug\sendFiles-Client.exe
+C:\Users\ירין\Source\Repos\Winform-socket-client\bin\Debug\sendFiles-Client.pdb
+C:\Users\ירין\Source\Repos\Winform-socket-client\obj\Debug\sendFiles-Client.csproj.AssemblyReference.cache
+C:\Users\ירין\Source\Repos\Winform-socket-client\obj\Debug\sendFiles-Client.csproj.SuggestedBindingRedirects.cache
+C:\Users\ירין\Source\Repos\Winform-socket-client\obj\Debug\sendFiles_Client.Form1.resources
+C:\Users\ירין\Source\Repos\Winform-socket-client\obj\Debug\sendFiles_Client.Properties.Resources.resources
+C:\Users\ירין\Source\Repos\Winform-socket-client\obj\Debug\sendFiles-Client.csproj.GenerateResource.cache
+C:\Users\ירין\Source\Repos\Winform-socket-client\obj\Debug\sendFiles-Client.csproj.CoreCompileInputs.cache
+C:\Users\ירין\Source\Repos\Winform-socket-client\obj\Debug\sendFiles-Client.exe
+C:\Users\ירין\Source\Repos\Winform-socket-client\obj\Debug\sendFiles-Client.pdb
